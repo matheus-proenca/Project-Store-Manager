@@ -5,7 +5,7 @@ const { productService } = require('../../../src/services');
 const { getProductByid } = require('../mocks/product.mock');
 
 describe('Realizando teste na product service', function () {
-  it('testa se recebe o encontra com um id existente', async function () {
+  it('testa se encontra um produto com um id existente', async function () {
     sinon.stub(productModel, 'findProductById').resolves(getProductByid);
 
     const id = 1;
