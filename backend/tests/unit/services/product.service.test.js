@@ -15,10 +15,12 @@ describe('Realizando teste na product service', function () {
     expect(service.data).to.deep.equal(getProductByid);
   });
   it('testa se não encontra o produto com um id inexistente', async function () {
+    sinon.stub(productModel, 'findProductById').resolves(undefined);
     const error = { message: 'Product not found' };
     const idInex = 6;
 
     const service = await productService.requestProduct(idInex);
+    console.log(service);
     expect(service.status).to.equal(404);
     expect(service.data).to.deep.equal(error);
   });

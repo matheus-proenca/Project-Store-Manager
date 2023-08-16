@@ -15,6 +15,7 @@ describe('Realizando teste na product service', function () {
     expect(service.data).to.deep.equal(getSaleByid);
   });
   it('testa se não encontra a venda com um id inexistente', async function () {
+    sinon.stub(salesModel, 'findSalesById').resolves([]);
     const error = { message: 'Sale not found' };
     const idInex = 6;
 
