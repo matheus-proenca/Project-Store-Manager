@@ -18,7 +18,13 @@ const getProductByid = {
   name: 'Martelo de Thor',
 };
 
+const createProductMock = {
+  id: 4,
+  name: 'ProdutoX',
+};
+
 module.exports = {
   getProduct,
   getProductByid,
+  createProductMock,
 };

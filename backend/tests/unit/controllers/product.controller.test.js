@@ -4,7 +4,7 @@ const chai = require('chai');
 const sinonChai = require('sinon-chai');
 const { productService } = require('../../../src/services');
 const { productController } = require('../../../src/controllers');
-const { getProductByid } = require('../mocks/product.mock');
+const { getProductByid, createProductMock } = require('../mocks/product.mock');
 
 chai.use(sinonChai);
 
@@ -25,6 +25,24 @@ describe('Realizando teste na product controller', function () {
     await productController.getProductById(req, res);
     expect(res.status).to.have.been.calledWith(200);
     expect(res.json).to.have.been.calledWith(getProductByid);
+  });
+
+  it('recebe o produto criado', async function () {
+    sinon.stub(productService, 'productCreate').resolves({
+      status: 201,
+      data: createProductMock,
+    });
+    const req = {
+      body: { name: 'ProdutoX' },
+    };
+     const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productController.createProduct(req, res);
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(createProductMock);
   });
 
   afterEach(function () {

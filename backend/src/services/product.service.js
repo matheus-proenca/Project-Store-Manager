@@ -12,7 +12,13 @@ const getProduct = async () => {
   return productData;
 };
 
+const productCreate = async (nameProduct) => {
+  const createData = await productModel.createProduct(nameProduct);
+  return { status: 201, data: createData };
+};
+
 module.exports = { 
   requestProduct,
   getProduct,
+  productCreate,
 };

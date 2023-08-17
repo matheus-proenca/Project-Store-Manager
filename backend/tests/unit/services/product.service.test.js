@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const { productModel } = require('../../../src/models');
 const { productService } = require('../../../src/services');
-const { getProductByid } = require('../mocks/product.mock');
+const { getProductByid, createProductMock } = require('../mocks/product.mock');
 
 describe('Realizando teste na product service', function () {
   it('testa se encontra um produto com um id existente', async function () {
@@ -20,9 +20,16 @@ describe('Realizando teste na product service', function () {
     const idInex = 6;
 
     const service = await productService.requestProduct(idInex);
-    console.log(service);
     expect(service.status).to.equal(404);
     expect(service.data).to.deep.equal(error);
+  });
+  it('testa se o Produto é criado com sucesso', async function () {
+    sinon.stub(productModel, 'createProduct').resolves(createProductMock);
+    const name = 'ProdutoX';
+    const service = await productService.productCreate(name);
+
+    expect(service.status).to.equal(201);
+    expect(service.data).to.deep.equal(createProductMock);
   });
 
   afterEach(function () {

@@ -4,7 +4,7 @@ const { salesModel } = require('../../../src/models');
 const { saleService } = require('../../../src/services');
 const { getSaleByid } = require('../mocks/sale.mock');
 
-describe('Realizando teste na product service', function () {
+describe('Realizando teste na sale service', function () {
   it('testa se encontra a venda com um id existente', async function () {
     sinon.stub(salesModel, 'findSalesById').resolves(getSaleByid);
 
