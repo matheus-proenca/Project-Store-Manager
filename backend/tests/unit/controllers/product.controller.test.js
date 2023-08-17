@@ -27,7 +27,7 @@ describe('Realizando teste na product controller', function () {
     expect(res.json).to.have.been.calledWith(getProductByid);
   });
 
-  it('recebe o produto criado', async function () {
+  it('recebe o produto criado com sucesso', async function () {
     sinon.stub(productService, 'productCreate').resolves({
       status: 201,
       data: createProductMock,
@@ -43,6 +43,43 @@ describe('Realizando teste na product controller', function () {
     await productController.createProduct(req, res);
     expect(res.status).to.have.been.calledWith(201);
     expect(res.json).to.have.been.calledWith(createProductMock);
+  });
+
+   it('recebe o produto criado com error se não possuir nome', async function () {
+    const error = { message: '"name" is required' };
+    sinon.stub(productService, 'productCreate').resolves({
+      status: 400,
+      data: error,
+    });
+    const req = {
+      body: {},
+    };
+     const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productController.createProduct(req, res);
+    expect(res.status).to.have.been.calledWith(400);
+    expect(res.json).to.have.been.calledWith(error);
+  });
+   it('recebe o produto criado com error se o nome for invalido', async function () {
+    const error = { message: '"name" length must be at least 5 characters long' };
+    sinon.stub(productService, 'productCreate').resolves({
+      status: 422,
+      data: error,
+    });
+    const req = {
+      body: { name: 'Prod' },
+    };
+     const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productController.createProduct(req, res);
+    expect(res.status).to.have.been.calledWith(422);
+    expect(res.json).to.have.been.calledWith(error);
   });
 
   afterEach(function () {

@@ -1,5 +1,6 @@
 const express = require('express');
 const { productController, salesController } = require('./controllers');
+const { checkName } = require('./middlewares/product');
 
 const app = express();
 app.use(express.json());
@@ -13,6 +14,6 @@ app.get('/products', productController.getProducts);
 app.get('/products/:id', productController.getProductById);
 app.get('/sales', salesController.getSales);
 app.get('/sales/:id', salesController.getSalesById);
-app.post('/products', productController.createProduct);
+app.post('/products', checkName, productController.createProduct);
 
 module.exports = app;
