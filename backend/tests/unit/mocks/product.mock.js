@@ -28,9 +28,21 @@ const productUpdateMock = {
   name: 'Martelo do Batman',
 };
 
+const deleteProduct = [
+  {
+    id: 2,
+    name: 'Traje de encolhimento',
+  },
+  {
+    id: 3,
+    name: 'Escudo do Capitão América',
+  },
+];
+
 module.exports = {
   getProduct,
   getProductByid,
   createProductMock,
   productUpdateMock,
+  deleteProduct,
 };

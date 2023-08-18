@@ -119,7 +119,7 @@ describe('Realizando teste na product controller', function () {
     expect(res.json).to.have.been.calledWith(productUpdateMock);
   });
 
-  it('Recebe o produto atualizando com error se não possuir nome', async function () {
+  it('Recebe o produto atualizando com erro se não possuir nome', async function () {
     const error = { message: '"name" is required' };
     sinon.stub(productService, 'productUpdate').resolves({
       status: 400,
@@ -138,6 +138,42 @@ describe('Realizando teste na product controller', function () {
     expect(res.status).to.have.been.calledWith(400);
     expect(res.json).to.have.been.calledWith(error);
   });
+
+  it('Deleta o produto', async function () {
+    sinon.stub(productService, 'productDelete').resolves({
+      status: 204,
+    });
+    const req = {
+      params: { id: 1 },
+    };
+     const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productController.deleteProduct(req, res);
+    expect(res.status).to.have.been.calledWith(204);
+  });
+
+    it('Recebe erro se tentar deletar com id invalido', async function () {
+    const error = { message: 'Product not found' };
+    sinon.stub(productService, 'productDelete').resolves({
+      status: 404,
+      data: error,
+    });
+    const req = {
+      params: { id: 6 },
+    };
+     const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productController.deleteProduct(req, res);
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith(error);
+  });
+  
   afterEach(function () {
     sinon.restore();
   });

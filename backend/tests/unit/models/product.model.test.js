@@ -2,7 +2,7 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const { productModel } = require('../../../src/models');
 const connection = require('../../../src/models/connection');
-const { getProductByid, createProductMock, productUpdateMock, getProduct } = require('../mocks/product.mock');
+const { getProductByid, createProductMock, productUpdateMock, getProduct, deleteProduct } = require('../mocks/product.mock');
 
 describe('Realizando teste na product model', function () {
   it('Buscando o produto', async function () {
@@ -43,6 +43,16 @@ describe('Realizando teste na product model', function () {
 
     expect(product).to.be.an('object');
     expect(product).to.be.deep.equal(productUpdateMock);
+  });
+
+  it('deletando um produto', async function () {
+    sinon.stub(connection, 'execute').resolves([deleteProduct]);
+    
+    const id = 1;
+    const product = await productModel.deleteProduct(id);
+
+    expect(product).to.be.an('array');
+    expect(product).to.be.deep.equal(deleteProduct);
   });
 
   afterEach(function () {
