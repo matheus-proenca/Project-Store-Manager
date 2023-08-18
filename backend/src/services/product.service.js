@@ -9,7 +9,7 @@ const requestProduct = async (productId) => {
 
 const getProduct = async () => {
   const productData = await productModel.getProduct();
-  return productData;
+  return { status: 200, data: productData };
 };
 
 const productCreate = async (nameProduct) => {
@@ -17,8 +17,16 @@ const productCreate = async (nameProduct) => {
   return { status: 201, data: createData };
 };
 
+const productUpdate = async (id, name) => {
+  const updateData = await productModel.updateProduct(id, name);
+  if (!updateData) return { status: 404, data: { message: 'Product not found' } };
+
+  return { status: 200, data: updateData };
+};
+
 module.exports = { 
   requestProduct,
   getProduct,
   productCreate,
+  productUpdate,
 };

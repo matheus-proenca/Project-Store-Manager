@@ -1,6 +1,5 @@
 const checkName = (req, res, next) => {
   const { name } = req.body;
-  console.log(name);
   const nameExist = ['name'];
   if (!nameExist.every((element) => element in req.body)) {
     return res.status(400).json({ message: '"name" is required' });

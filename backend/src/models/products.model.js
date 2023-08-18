@@ -19,8 +19,17 @@ value (?)`, [nameProduct]);
   return findProduct;
 };
 
+const updateProduct = async (productId, nameProduct) => {
+  await connection.execute(`UPDATE products SET id = ?, name = ?
+ WHERE id = ?`, [productId, nameProduct, productId]);
+  const [[findProduct]] = await connection.execute(`SELECT * FROM products 
+ where NAME = ?`, [nameProduct]);
+  return findProduct;
+};
+
 module.exports = {
   findProductById,
   getProduct,
   createProduct,
+  updateProduct,
 };

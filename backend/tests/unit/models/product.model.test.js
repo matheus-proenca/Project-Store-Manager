@@ -2,10 +2,19 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const { productModel } = require('../../../src/models');
 const connection = require('../../../src/models/connection');
-const { getProductByid, createProductMock } = require('../mocks/product.mock');
+const { getProductByid, createProductMock, productUpdateMock, getProduct } = require('../mocks/product.mock');
 
 describe('Realizando teste na product model', function () {
-  it('buscando o produto', async function () {
+  it('Buscando o produto', async function () {
+    sinon.stub(connection, 'execute').resolves([getProduct]);
+    
+    const product = await productModel.getProduct();
+
+    expect(product).to.be.an('array');
+    expect(product).to.be.deep.equal(getProduct);
+  });
+
+  it('Buscando o produto pelo id', async function () {
     sinon.stub(connection, 'execute').resolves([[getProductByid]]);
     
     const id = 1;
@@ -15,7 +24,7 @@ describe('Realizando teste na product model', function () {
     expect(product).to.be.deep.equal(getProductByid);
   });
 
-   it('criando um novo produto', async function () {
+   it('Criando um novo produto', async function () {
     sinon.stub(connection, 'execute').resolves([[createProductMock]]);
     
     const name = 'ProdutoX';
@@ -23,6 +32,17 @@ describe('Realizando teste na product model', function () {
 
     expect(product).to.be.an('object');
     expect(product).to.be.deep.equal(createProductMock);
+  });
+
+  it('Atualizando um produto', async function () {
+    sinon.stub(connection, 'execute').resolves([[productUpdateMock]]);
+    
+    const name = 'Martelo do Batman';
+    const id = 1;
+    const product = await productModel.updateProduct(id, name);
+
+    expect(product).to.be.an('object');
+    expect(product).to.be.deep.equal(productUpdateMock);
   });
 
   afterEach(function () {

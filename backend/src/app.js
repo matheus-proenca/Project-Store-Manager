@@ -11,9 +11,10 @@ app.get('/', (_request, response) => {
 });
 
 app.get('/products', productController.getProducts);
-app.get('/products/:id', productController.getProductById);
 app.get('/sales', salesController.getSales);
+app.get('/products/:id', productController.getProductById);
 app.get('/sales/:id', salesController.getSalesById);
 app.post('/products', checkName, productController.createProduct);
+app.put('/products/:id', checkName, productController.updateProduct);
 
 module.exports = app;
