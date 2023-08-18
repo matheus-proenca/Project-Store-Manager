@@ -63,6 +63,7 @@ describe('Realizando teste na product service', function () {
 
   it('Testa se retorna erro quanto tenta deletar com id inexistente', async function () {
     sinon.stub(productModel, 'deleteProduct').resolves(undefined);
+    sinon.stub(productModel, 'findProductById').resolves(undefined);
     const id = 6;
     const error = { message: 'Product not found' };
     const service = await productService.productDelete(id);
@@ -74,6 +75,7 @@ describe('Realizando teste na product service', function () {
   it('Testa se deleta o Produto com sucesso', async function () {
     sinon.stub(productModel, 'deleteProduct').resolves(deleteProduct);
     const id = 1;
+    sinon.stub(productModel, 'findProductById').resolves(id);
     const service = await productService.productDelete(id);
 
     expect(service.status).to.equal(204);

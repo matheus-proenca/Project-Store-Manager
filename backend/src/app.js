@@ -15,8 +15,8 @@ app.get('/sales', salesController.getSales);
 app.get('/products/:id', productController.getProductById);
 app.get('/sales/:id', salesController.getSalesById);
 app.post('/products', checkName, productController.createProduct);
-app.post('/sales', salesController.createSale);
 app.put('/products/:id', checkName, productController.updateProduct);
 app.delete('/products/:id', productController.deleteProduct);
+app.post('/sales', salesController.createSale);
 
 module.exports = app;
