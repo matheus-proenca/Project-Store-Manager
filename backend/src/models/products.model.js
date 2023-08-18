@@ -12,8 +12,8 @@ const getProduct = async () => {
 };
 
 const createProduct = async (nameProduct) => {
-  await connection.execute(`insert into products (name)
-value (?)`, [nameProduct]);
+  await connection.execute(`INSERT INTO products (name)
+VALUES (?)`, [nameProduct]);
   const [[findProduct]] = await connection.execute(`SELECT * FROM products 
  where NAME = ?`, [nameProduct]);
   return findProduct;
@@ -23,7 +23,7 @@ const updateProduct = async (productId, nameProduct) => {
   await connection.execute(`UPDATE products SET id = ?, name = ?
  WHERE id = ?`, [productId, nameProduct, productId]);
   const [[findProduct]] = await connection.execute(`SELECT * FROM products 
- where NAME = ?`, [nameProduct]);
+ WHERE NAME = ?`, [nameProduct]);
   return findProduct;
 };
 

@@ -12,7 +12,13 @@ const requestSales = async (saleId) => {
   return { status: 200, data: sale };
 };
 
+const createSale = async (itemsSold) => {
+  const id = await salesModel.createSale(itemsSold);
+  return { status: 201, data: { id, itemsSold } };
+};
+
 module.exports = {
   getSales,
   requestSales,
+  createSale,
 };

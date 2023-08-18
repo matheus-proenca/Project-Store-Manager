@@ -5,7 +5,7 @@ const connection = require('../../../src/models/connection');
 const { getSaleByid, mockSale } = require('../mocks/sale.mock');
 
 describe('Realizando teste na sale model', function () {
-   it('Buscando o sale', async function () {
+   it('Buscando a venda', async function () {
     sinon.stub(connection, 'execute').resolves([mockSale]);
     
     const sale = await salesModel.getSales();
@@ -14,7 +14,7 @@ describe('Realizando teste na sale model', function () {
     expect(sale).to.be.deep.equal(mockSale);
   });
 
-  it('Buscando o sale pelo', async function () {
+  it('Buscando a venda pelo id', async function () {
     sinon.stub(connection, 'execute').resolves([getSaleByid]);
     
     const id = 1;
