@@ -1,6 +1,7 @@
 const express = require('express');
 const { productController, salesController } = require('./controllers');
 const { checkName } = require('./middlewares/product');
+const { saleProduct, saleQuantity, saleProductId } = require('./middlewares/sales');
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,6 @@ app.get('/sales/:id', salesController.getSalesById);
 app.post('/products', checkName, productController.createProduct);
 app.put('/products/:id', checkName, productController.updateProduct);
 app.delete('/products/:id', productController.deleteProduct);
-app.post('/sales', salesController.createSale);
+app.post('/sales', saleProduct, saleQuantity, saleProductId, salesController.createSale);
 
 module.exports = app;

@@ -59,9 +59,55 @@ const createReq = [
   },
 ];
 
+const errorCreateReq = [
+  {
+    productId: 5,
+    quantity: 1,
+  },
+  {
+    productId: 2,
+    quantity: 5,
+  },
+];
+
+const errorReq = [
+  {
+    quantity: 1,
+  },
+  {
+    productId: 2,
+    quantity: 5,
+  },
+];
+
+const errorQuantityExiReq = [
+  {
+    productId: 5,
+  },
+  {
+    productId: 2,
+    quantity: 5,
+  },
+];
+
+const errorQuantityZeroReq = [
+  {
+    productId: 5,
+    quantity: 0,
+  },
+  {
+    productId: 2,
+    quantity: 5,
+  },
+];
+
 module.exports = {
   mockSale,
   getSaleByid,
   createSaleMock,
   createReq,
+  errorCreateReq,
+  errorReq,
+  errorQuantityExiReq,
+  errorQuantityZeroReq,
 };
